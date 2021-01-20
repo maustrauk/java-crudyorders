@@ -51,11 +51,11 @@ public class CustomersController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    /*@PatchMapping(value = "/customer/{id}", produces = "application/json", consumes = "application/json")
+    @PatchMapping(value = "/customer/{id}", produces = "application/json", consumes = "application/json")
     public ResponseEntity<?> updateCustomer(@RequestBody Customer updateCustomer, @PathVariable long id) {
         updateCustomer = customersService.update(updateCustomer, id);
         return new ResponseEntity<>(updateCustomer, HttpStatus.OK);
-    }*/
+    }
 
     /*@PostMapping(value = "/customer", produces = "application/json", consumes = "application/json")
     public ResponseEntity<?> addCustomer(@Valid @RequestBody Customer newCustomer) {

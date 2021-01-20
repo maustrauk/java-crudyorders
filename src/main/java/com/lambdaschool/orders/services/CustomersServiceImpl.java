@@ -124,4 +124,91 @@ public class CustomersServiceImpl implements CustomersService{
             throw new EntityNotFoundException("Customer " + id + " not found!");
         }
     }
+
+    @Transactional
+    @Override
+    public Customer update(Customer updateCustomer, long id) {
+
+        Customer currentCustomer = customersrepos.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Customer " + id + " not found!"));
+
+        if (updateCustomer.getCustname() != null) {
+            currentCustomer.setCustname(updateCustomer.getCustname());
+        }
+
+        if (updateCustomer.getCustcity() != null) {
+            currentCustomer.setCustcity(updateCustomer.getCustcity());
+        }
+
+        if(updateCustomer.getWorkingarea() != null) {
+            currentCustomer.setWorkingarea(updateCustomer.getWorkingarea());
+        }
+
+        if(updateCustomer.getCustcountry() != null) {
+            currentCustomer.setCustcountry(updateCustomer.getCustcountry());
+        }
+
+        if(updateCustomer.getGrade() != null) {
+            currentCustomer.setGrade(updateCustomer.getGrade());
+        }
+
+        if(updateCustomer.hasvalueforopeningamt) {
+            currentCustomer.setOpeningamt(updateCustomer.getOpeningamt());
+        }
+
+        if(updateCustomer.hasvalueforreceiveamt) {
+            currentCustomer.setReceiveamt(updateCustomer.getReceiveamt());
+        }
+
+        if(updateCustomer.hasvalueforpaymentamt) {
+            currentCustomer.setPaymentamt(updateCustomer.getPaymentamt());
+        }
+
+        if(updateCustomer.hasvalueforoutstandingamt) {
+            currentCustomer.setOutstandingamt(updateCustomer.getOutstandingamt());
+        }
+
+        if(updateCustomer.getPhone() != null) {
+            currentCustomer.setPhone(updateCustomer.getPhone());
+        }
+
+
+        Agent newAgent = agentsrepos.findById(updateCustomer.getAgent().getAgentcode())
+                .orElseThrow(() -> new EntityNotFoundException("Agent " + updateCustomer.getAgent().getAgentcode() + " not found!"));
+        currentCustomer.setAgent(newAgent);
+
+        if(updateCustomer.getOrders().size() > 0) {
+            currentCustomer.getOrders().clear();
+            for (Order o : updateCustomer.getOrders()) {
+               Order currentOrder = ordersrepos.findById(o.getOrdnum())
+                       .orElseThrow(() -> new EntityNotFoundException("Order " + o.getOrdnum() + " not found!"));
+
+               if(o.hasvalueforordamount) {
+                   currentOrder.setOrdamount(o.getOrdamount());
+               }
+
+               if(o.hasvalueforadvanceamount) {
+                   currentOrder.setAdvanceamount(o.getAdvanceamount());
+               }
+
+               if(o.getOrderdescription() != null) {
+                   currentOrder.setOrderdescription(o.getOrderdescription());
+               }
+                currentOrder.setCustomer(currentCustomer);
+
+               if(o.getPayments().size() > 0) {
+                   currentOrder.getPayments().clear();
+                   for (Payment p : o.getPayments()) {
+                       Payment newPay = paymentsrepo.findById(p.getPaymentid())
+                               .orElseThrow(() -> new EntityNotFoundException("Payment " + p.getPaymentid() + " not found!"));
+                       currentOrder.getPayments().add(newPay);
+                   }
+               }
+
+                currentCustomer.getOrders().add(currentOrder);
+            }
+        }
+
+        return customersrepos.save(currentCustomer);
+    }
 }
