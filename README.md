@@ -84,11 +84,11 @@ Expose the following endpoints
 * [ ]  POST /customers/customer - Adds a new customer including any new orders
 * [ ]  PUT /customers/customer/{custcode} - completely replaces the customer record including associated orders with the provided data
 * [ ]  PATCH /customers/customer/{custcode} - updates customers with the new data. Only the new data is to be sent from the frontend client.
-* [ ]  DELETE /customers/customer/{custcode} - Deletes the given customer including any associated orders
+* [*]  DELETE /customers/customer/{custcode} - Deletes the given customer including any associated orders
 
 * [ ]  POST /orders/order - adds a new order to an existing customer
 * [ ]  PUT /orders/order/{ordernum} - completely replaces the given order record
-* [ ]  DELETE /orders/order/{ordername} - deletes the given order
+* [*]  DELETE /orders/order/{ordername} - deletes the given order
 
 ### Stretch Goal
 

@@ -6,10 +6,7 @@ import com.lambdaschool.orders.views.CustomerCountOrders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,7 +22,7 @@ public class CustomersController {
         return new ResponseEntity<>(myCustomers, HttpStatus.OK);
     }
 
-    @GetMapping (value = "/customers/{customerId}", produces = "application/json")
+    @GetMapping (value = "/customer/{customerId}", produces = "application/json")
     public ResponseEntity<?> getCustomerById (@PathVariable Long customerId) {
         Customer c = customersService.findCustomerById(customerId);
 
@@ -42,5 +39,11 @@ public class CustomersController {
     public ResponseEntity<?> getCountCustomerOrders() {
         List<CustomerCountOrders> myList = customersService.getCustomerCountOrders();
         return new ResponseEntity<>(myList, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/customer/{id}")
+    public ResponseEntity<?> deleteCustomerById(@PathVariable long id) {
+        customersService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

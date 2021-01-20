@@ -50,4 +50,14 @@ public class CustomersServiceImpl implements CustomersService{
     {
         return customersrepos.getCountOrders();
     }
+
+    @Transactional
+    @Override
+    public void delete(long id) {
+        if (customersrepos.findById(id).isPresent()) {
+            customersrepos.deleteById(id);
+        } else {
+            throw new EntityNotFoundException("Customer " + id + " not found!");
+        }
+    }
 }

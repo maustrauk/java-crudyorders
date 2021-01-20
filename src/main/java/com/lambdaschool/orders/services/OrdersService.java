@@ -10,4 +10,5 @@ public interface OrdersService {
     Order save(Order order);
     Order findOrderById(long id);
     List<OrdersWithCustomersAdvam> getOrdersWithCustomersAdvam();
+    void delete (long id);
 }

@@ -35,4 +35,13 @@ public class OrdersServiceImpl implements OrdersService{
         return ordersrepo.getOrdersWithCustomersAdvam();
     }
 
+    @Transactional
+    @Override
+    public void delete(long id) {
+        if (ordersrepo.findById(id).isPresent()) {
+            ordersrepo.deleteById(id);
+        } else {
+            throw new EntityNotFoundException("Order " + id + " not found!");
+        }
+    }
 }
