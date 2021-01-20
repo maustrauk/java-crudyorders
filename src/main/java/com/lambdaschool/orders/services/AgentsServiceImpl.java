@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 
+@Transactional
 @Service(value = "agentsService")
 public class AgentsServiceImpl implements AgentsService{
 

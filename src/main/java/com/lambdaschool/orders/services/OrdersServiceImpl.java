@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
+@Transactional
 @Service(value = "ordersService")
 public class OrdersServiceImpl implements OrdersService{
     @Autowired

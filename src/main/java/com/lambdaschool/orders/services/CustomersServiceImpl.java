@@ -11,6 +11,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 @Service(value = "customersService")
 public class CustomersServiceImpl implements CustomersService{
     @Autowired
