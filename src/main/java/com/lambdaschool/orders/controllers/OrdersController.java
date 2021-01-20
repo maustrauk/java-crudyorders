@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -34,5 +35,12 @@ public class OrdersController {
     public ResponseEntity<?> deleteOrderById(@PathVariable long id) {
         ordersService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping(value="/order/{id}", produces = "application/json", consumes = "application/json")
+    public ResponseEntity<?> updateFullOrder(@Valid @RequestBody Order updateOrder, @PathVariable long id){
+        updateOrder.setOrdnum(id);
+        updateOrder = ordersService.save(updateOrder);
+        return new ResponseEntity<>(updateOrder, HttpStatus.OK);
     }
 }

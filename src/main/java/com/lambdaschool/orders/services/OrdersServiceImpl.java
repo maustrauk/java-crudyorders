@@ -1,7 +1,11 @@
 package com.lambdaschool.orders.services;
 
+import com.lambdaschool.orders.models.Customer;
 import com.lambdaschool.orders.models.Order;
+import com.lambdaschool.orders.models.Payment;
+import com.lambdaschool.orders.repositories.CustomersRepository;
 import com.lambdaschool.orders.repositories.OrdersRepository;
+import com.lambdaschool.orders.repositories.PaymentsRepository;
 import com.lambdaschool.orders.views.CustomerCountOrders;
 import com.lambdaschool.orders.views.OrdersWithCustomersAdvam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +21,40 @@ public class OrdersServiceImpl implements OrdersService{
     @Autowired
     private OrdersRepository ordersrepo;
 
+    @Autowired
+    private CustomersRepository customersrepo;
+
+    @Autowired
+    private PaymentsRepository paymentsrepo;
+
     @Transactional
     @Override
     public Order save(Order order) {
-        return ordersrepo.save(order);
+
+        Order newOrder = new Order();
+
+        if(order.getOrdnum() != 0) {
+            ordersrepo.findById(order.getOrdnum())
+                    .orElseThrow(() -> new EntityNotFoundException("Order " + order.getOrdnum() + " not found!"));
+            newOrder.setOrdnum(order.getOrdnum());
+        }
+
+        newOrder.setOrdamount(order.getOrdamount());
+        newOrder.setAdvanceamount(order.getAdvanceamount());
+        newOrder.setOrderdescription(order.getOrderdescription());
+
+        Customer newCustomer = customersrepo.findById(order.getCustomer().getCustcode())
+                .orElseThrow(() -> new EntityNotFoundException("Customer " + order.getCustomer().getCustcode() + " not found!"));
+        newOrder.setCustomer(newCustomer);
+
+        newOrder.getPayments().clear();
+        for (Payment p: order.getPayments()) {
+            Payment newPay = paymentsrepo.findById(p.getPaymentid())
+                    .orElseThrow(() -> new EntityNotFoundException("Payment " + p.getPaymentid() + " not found!"));
+            newOrder.getPayments().add(newPay);
+        }
+
+        return ordersrepo.save(newOrder);
     }
 
     @Override
