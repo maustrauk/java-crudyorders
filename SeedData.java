@@ -1,14 +1,14 @@
-package com.lambdaschool.orders;
+package com.lambdaschool.crudyorders;
 
 //import com.github.javafaker.Faker;
-import com.lambdaschool.orders.models.Agent;
-import com.lambdaschool.orders.models.Customer;
-import com.lambdaschool.orders.models.Order;
-import com.lambdaschool.orders.models.Payment;
-import com.lambdaschool.orders.repositories.AgentsRepository;
-import com.lambdaschool.orders.repositories.CustomersRepository;
-import com.lambdaschool.orders.repositories.OrdersRepository;
-import com.lambdaschool.orders.repositories.PaymentsRepository;
+import com.lambdaschool.crudyorders.models.Agent;
+import com.lambdaschool.crudyorders.models.Customer;
+import com.lambdaschool.crudyorders.models.Order;
+import com.lambdaschool.crudyorders.models.Payment;
+import com.lambdaschool.crudyorders.repositories.AgentsRepository;
+import com.lambdaschool.crudyorders.repositories.CustomersRepository;
+import com.lambdaschool.crudyorders.repositories.OrdersRepository;
+import com.lambdaschool.crudyorders.repositories.PaymentsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
