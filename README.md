@@ -77,16 +77,16 @@ Using the provided seed data, a successful application will return the follow da
 
 ## Instructions
 
-* [ ] Please fork and clone this repository. Copy your solution from part 2 into this repository. Your solution from part 2 is the starting point for part 3. If your part 2 did not reach MVP, please check with your TL group leader about your options. Regularly commit and push your code as appropriate.
+* [*] Please fork and clone this repository. Copy your solution from part 2 into this repository. Your solution from part 2 is the starting point for part 3. If your part 2 did not reach MVP, please check with your TL group leader about your options. Regularly commit and push your code as appropriate.
 
 Expose the following endpoints
 
-* [ ]  POST /customers/customer - Adds a new customer including any new orders
+* [*]  POST /customers/customer - Adds a new customer including any new orders
 * [*]  PUT /customers/customer/{custcode} - completely replaces the customer record including associated orders with the provided data
 * [*]  PATCH /customers/customer/{custcode} - updates customers with the new data. Only the new data is to be sent from the frontend client.
 * [*]  DELETE /customers/customer/{custcode} - Deletes the given customer including any associated orders
 
-* [ ]  POST /orders/order - adds a new order to an existing customer
+* [*]  POST /orders/order - adds a new order to an existing customer
 * [*]  PUT /orders/order/{ordernum} - completely replaces the given order record
 * [*]  DELETE /orders/order/{ordername} - deletes the given order
 

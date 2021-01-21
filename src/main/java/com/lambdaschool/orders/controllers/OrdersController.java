@@ -2,14 +2,16 @@ package com.lambdaschool.orders.controllers;
 
 import com.lambdaschool.orders.models.Order;
 import com.lambdaschool.orders.services.OrdersService;
-import com.lambdaschool.orders.views.CustomerCountOrders;
 import com.lambdaschool.orders.views.OrdersWithCustomersAdvam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -42,5 +44,20 @@ public class OrdersController {
         updateOrder.setOrdnum(id);
         updateOrder = ordersService.save(updateOrder);
         return new ResponseEntity<>(updateOrder, HttpStatus.OK);
+    }
+    @PostMapping(value="order", produces = "application/json", consumes = "application/json")
+    public ResponseEntity<?> addOrder(@Valid @RequestBody Order newOrder) {
+       newOrder.setOrdnum(0);
+       newOrder = ordersService.save(newOrder);
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+
+        URI newOrderURI = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{ordnum}")
+                .buildAndExpand(newOrder.getOrdnum())
+                .toUri();
+        responseHeaders.setLocation(newOrderURI);
+
+        return new ResponseEntity<>(newOrder, responseHeaders, HttpStatus.CREATED);
     }
 }
